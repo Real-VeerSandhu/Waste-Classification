@@ -1,0 +1,6 @@
+models/resnet50_gar_TESTINGPU.h5
+models/resnet50_gar.h5
+models/resnet50_gar0.h5
+models/saved_model.pb
+test_images/path.txt
+__pycache__/main.cpython-36.pyc

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>predict image app</title>
+    <style>
+        * {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body style="font-family: helvetica, arial, sans-serif;">
+    <input id="image-selector" type="file">    
+    <button style="border-radius: 5%; border-width: 2px; border-color: black;" id="predict-button">Predict</button>
+    <h1>Prediction: <span id="result"></span></h1>
+    <img id="selected-image" src=""/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        let base64Image;
+        $("#image-selector").change(function () {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let dataURL = reader.result;
+                $('#selected-image').attr("src", dataURL);
+                base64Image = dataURL.replace("data:image/png;base64,", "");
+            }
+            reader.readAsDataURL($("#image-selector")[0].files[0]);
+            $("#result").text("");
+            $("#cat-prediction").text("");
+        });
+
+        $("#predict-button").click(function () {
+            let message = {
+                image: base64Image
+            }
+            console.log(message);
+            $.post("http://127.0.0.1:5000/predict", JSON.stringify(message), function (response) {
+                $("#result").text(response.prediction);
+                console.log('RESPONSE: ', response);
+            });
+        });       
+    </script>
+</body>
