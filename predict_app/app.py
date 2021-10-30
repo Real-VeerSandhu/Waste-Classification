@@ -1,4 +1,3 @@
-from numpy.lib.npyio import load
 import streamlit as st
 import tensorflow as tf
 from PIL import Image
